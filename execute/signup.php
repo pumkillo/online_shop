@@ -2,6 +2,8 @@
 session_start();
 require_once(__DIR__ . '/../auxiliary/Loader.php');
 require_once(Loader::load('app'));
+require_once(Loader::load('db'));
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -23,11 +25,36 @@ require_once(Loader::load('app'));
         <a href="<?= EXECUTED ?>logout.php">Выйти</a>
     <?php endif; ?>
 
+    <?php
+
+    if (!empty($_POST)) {
+        $email = strip_tags($_POST['email']);
+        $password = strip_tags($_POST['password']);
+        $name = strip_tags($_POST['name']);
+        $surname = strip_tags($_POST['surname']);
+        $patronymic = strip_tags($_POST['patronymic']);
+
+        // Проверяем, есть ли пользователь с таким логином вынести в валидатор
+        $query = "SELECT * FROM users WHERE email = '$email'";
+        $res = mysqli_query($mysqli, $query);
+
+
+        if ($res->{'num_rows'} != 0) {
+            echo "<h2>Такой пользователь уже существует</h2>";
+        } else {
+            // Если пользователя нет, то добавляем его в базу данных и перенаправляем на главную страницу
+            $query = "INSERT INTO users (email, password) VALUES ('$email', '$password')";
+            $res = mysqli_query($mysqli, $query);
+            if (!$res) die(mysqli_error($mysqli));
+//            header('Location: ../index.html');
+        }
+    }
+    ?>
 
     <form method="post">
         <input type="text" name="name" placeholder="Фамилия">
         <input type="text" name="surname" placeholder="Имя">
-        <input type="text" name="last_name" placeholder="Отчество">
+        <input type="text" name="patronymic" placeholder="Отчество">
         <input type="text" name="email" placeholder="Ваш email">
         <input type="text" name="password" placeholder="Придумайте пароль">
         <input type="text" name="password_again" placeholder="Повторите пароль">
@@ -35,27 +62,6 @@ require_once(Loader::load('app'));
     </form>
 </body>
 
-<?php
-if (!empty($_POST['submit']) && $_POST['submit'] == 'Регистрация') {
-    // Очищаем пришедшие данные от HTML и PHP тегов
-    $login = strip_tags($_POST['login']);
-    $password = strip_tags($_POST['password']);
 
-    // Проверяем, есть ли пользователь с таким логином
-    $query = "SELECT * FROM user WHERE Login = '$login'";
-    $res = mysqli_query($mysqli, $query);
-
-    if ($res->{'num_rows'} != 0) {
-        echo "<h2>Такой пользователь уже существует</h2>";
-    } else {
-        // Если пользователя нет, то добавляем его в базу данных и перенаправляем на главную страницу
-        $query = "INSERT INTO user (login, password) VALUES ('$login','$password')";
-        $res = mysqli_query($mysqli, $query);
-        if (!$res) die(mysqli_error($mysqli));
-
-        header('Location: ../index.html');
-    }
-}
-?>
 
 </html>

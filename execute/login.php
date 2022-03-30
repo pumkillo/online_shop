@@ -52,7 +52,7 @@ require_once(Loader::load('db'));
         // и перенаправляем пользователя на главную страницу, иначе выдаём ошибку
         if (gettype($row) !== 'NULL' && $row['email'] === $email && $row['password'] === $password) {
             $_SESSION['id'] = $row['id'];
-            header('Location: main.php');
+//            header('Location: main.php');
         } else {
             echo "<h2>Введены некорректные данные!</h2>";
         }

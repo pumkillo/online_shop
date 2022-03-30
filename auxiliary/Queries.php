@@ -1,7 +1,8 @@
 <?php
 class Queries
 {
-    public static function all($table, )
+    public static function all($table)
     {
+
     }
 }

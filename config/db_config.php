@@ -3,6 +3,6 @@
 $host = 'localhost';
 $database = 'online_shop';
 $user = 'root';
-$password = '';
+$password = 'root';
 
 

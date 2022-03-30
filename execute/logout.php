@@ -24,7 +24,7 @@
     <?php endif;
     if (isset($_SESSION['id'])) :
         unset($_SESSION['id']);
-        header('Location: main.php');
+//        header('Location: main.php');
     else : ?>
         <p>Чтобы выйти, Вы должны быть авторизированы.</p>
     <?php endif; ?>
