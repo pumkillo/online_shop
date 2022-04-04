@@ -1,11 +1,15 @@
 <?php
-require_once(Loader::load('db'));
-class PasswordValidator
-{
-    public static $messages = '';
+require_once(__DIR__ . '/AbstractValidator.php');
 
-    public static function validate($data)
+class EmailValidator extends AbstractValidator
+{
+    public function rule(): bool
     {
-        return (bool)filter_var($data, FILTER_VALIDATE_EMAIL);
+        return (bool)filter_var($this->value, FILTER_VALIDATE_EMAIL);
+    }
+
+    public function message(): string
+    {
+        return 'Поле должно соответствовать шаблону электронной почты.';
     }
 }

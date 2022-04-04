@@ -1,13 +1,17 @@
 <?php
-require_once(Loader::load('db'));
-class PasswordValidator
-{
-    public static $messages = '';
+require_once(__DIR__ . '/../auxiliary/Loader.php');
+require_once(Loader::load('query'));
+require_once(__DIR__ . '/AbstractValidator.php');
 
-    public static function validate($table, $field, $data)
+class UniqueValidator extends AbstractValidator
+{
+    public function rule(): bool
     {
-        $query = "SELECT * FROM" . $table . "WHERE " . $field . " = '" . $data . "'";
-        $res = mysqli_query($mysqli, $query);
-        return empty($res) ? true : false;
+        return (bool)count(Query::table($this->args[0])->where($this->args[1] . " LIKE '" . $this->value . "'")) === 0;
+    }
+
+    public function message(): string
+    {
+        return 'Поле :field должно быть уникально.';
     }
 }
