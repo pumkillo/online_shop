@@ -8,9 +8,14 @@ class Router
         'signup' => 'signup.php',
     ];
 
-    public static function redirect($route, $time=0)
+    public static function redirect(string $route, int $time = 0): void
     {
         sleep($time);
         header('Location: ' . self::$routes[$route]);
+    }
+
+    public static function get(string $key): string
+    {
+        return static::$routes[$key] ?? '#';
     }
 }

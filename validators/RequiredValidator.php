@@ -5,7 +5,6 @@ class RequiredValidator extends AbstractValidator
 {
     public function rule(): bool
     {
-        // echo "3<br>";
         return !empty($this->value);
     }
 

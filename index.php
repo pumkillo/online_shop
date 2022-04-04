@@ -3,6 +3,8 @@ session_start();
 // Подключение настроек приложения
 require_once(__DIR__ . '/auxiliary/Loader.php');
 require_once(Loader::load('app'));
+require_once(Loader::load('query'));
+// require_once(Loader::load('middlewares').'AdminMiddlewares');
 ?>
 
 <!DOCTYPE html>
@@ -17,17 +19,20 @@ require_once(Loader::load('app'));
 
 
 <body>
-    <ul class="nav justify-content-end">
-
+    <div class="container">
         <?php
-        if (!isset($_SESSION['id'])) :
-        ?>
-            <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>login.php">Войти</a></li>
-            <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>signup.php">Зарегистрироваться</a></li>
-        <?php else : ?>
-            <li class="nav-item"><a class="nav-link" href="<?= ROOT ?>logout.php">Выйти</a></li>
-        <?php endif; ?>
-    </ul>
+        require_once(Loader::load('views') . 'header.php');
+        foreach (Query::table('items')->all() as $item) : ?>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><?= $item['name'] ?? '' ?></h5>
+                    <p class="card-text"><?= $item['description'] ?? '' ?></p>
+                    <p class="card-text"><?= $item['price'] ?? '' ?></p>
+                    <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 </body>
 
 </html>

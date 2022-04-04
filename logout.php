@@ -1,7 +1,7 @@
 <?php
-    session_start();
-    require_once(__DIR__ . '/auxiliary/Loader.php');
-    require_once(Loader::load('app'));
+session_start();
+require_once(__DIR__ . '/auxiliary/Loader.php');
+require_once(Loader::load('app'));
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -14,20 +14,23 @@
 </head>
 
 <body>
-    <?php
-    if (!isset($_SESSION['id'])) :
-    ?>
-        <a href="<?= ROOT ?>login.php">Войти</a>
-        <a href="<?= ROOT ?>signup.php">Зарегистрироваться</a>
-    <?php else : ?>
-        <a href="<?= ROOT ?>logout.php">Выйти</a>
-    <?php endif;
-    if (isset($_SESSION['id'])) :
-        unset($_SESSION['id']);
-       header('Location: index.php');
-    else : ?>
-        <p>Чтобы выйти, Вы должны быть авторизированы.</p>
-    <?php endif; ?>
+    <div class="container">
+        <?php
+        if (!isset($_SESSION['id'])) :
+        ?>
+            <a href="<?= ROOT ?>login.php">Войти</a>
+            <a href="<?= ROOT ?>signup.php">Зарегистрироваться</a>
+        <?php else : ?>
+            <a href="<?= ROOT ?>logout.php">Выйти</a>
+        <?php endif;
+        if (isset($_SESSION['id'])) :
+            unset($_SESSION['id']);
+            header('Location: index.php');
+        else : ?>
+            <p>Чтобы выйти, Вы должны быть авторизированы.</p>
+        <?php endif; ?>
+    </div>
+
 </body>
 
 </html>
