@@ -1,10 +1,8 @@
 <?php
-session_start();
 // Подключение настроек приложения
 require_once(__DIR__ . '/auxiliary/Loader.php');
 require_once(Loader::load('app'));
 require_once(Loader::load('query'));
-// require_once(Loader::load('middlewares').'AdminMiddlewares');
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +26,7 @@ require_once(Loader::load('query'));
                     <h5 class="card-title"><?= $item['name'] ?? '' ?></h5>
                     <p class="card-text"><?= $item['description'] ?? '' ?></p>
                     <p class="card-text"><?= $item['price'] ?? '' ?></p>
-                    <a href="#" class="btn btn-primary">Перейти куда-нибудь</a>
+                    <a href="<?= Router::get('add_to_cart') ?>" class="btn btn-primary">Добавить в корзину</a>
                 </div>
             </div>
         <?php endforeach; ?>

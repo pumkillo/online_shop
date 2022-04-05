@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once(__DIR__ . '/auxiliary/Loader.php');
 require_once(Loader::load('app'));
 ?>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once(__DIR__ . '/auxiliary/Loader.php');
 require_once(Loader::load('validators'));
 require_once(Loader::load('router'));
@@ -46,7 +45,7 @@ require_once(Loader::load('query'));
                         <input type="password" name="password" placeholder="Введите Ваш пароль" class="form-control">
                     </div>
 
-                    <p class="text-danger"><?= $message ?? '' ?></p>
+                    <p class="errors text-danger"><?= $message ?? '' ?></p>
                     <input type="submit" value="Войти" class="btn btn-primary">
                 </form>
             <?php else : ?>

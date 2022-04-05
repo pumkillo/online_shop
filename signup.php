@@ -1,10 +1,10 @@
 <?php
-session_start();
 require_once(__DIR__ . '/auxiliary/Loader.php');
 require_once(Loader::load('router'));
 require_once(Loader::load('validators'));
 require_once(Loader::load('app'));
 require_once(Loader::load('query'));
+require_once(Loader::load('views') . 'errors.php');
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -57,68 +57,32 @@ require_once(Loader::load('query'));
 
             <div class="mb-3">
                 <input type="text" name="name" placeholder="Имя" class="form-control" value="<?= $_POST['name'] ?? '' ?>">
-                <?php
-                if (isset($errors['name'])) {
-                    foreach ($errors['name'] as $val) {
-                        echo '<p class="text-danger">' . $val . '</p>';
-                    }
-                }
-                ?>
+                <?php renderErrors($errors, 'name'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="text" name="surname" placeholder="Фамилия" class="form-control" value="<?= $_POST['surname'] ?? '' ?>">
-                <?php
-                if (isset($errors['surname'])) {
-                    foreach ($errors['surname'] as $val) {
-                        echo '<p class="text-danger">' . $val . '</p>';
-                    }
-                }
-                ?>
+                <?php renderErrors($errors, 'surname'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="text" name="patronymic" placeholder="Отчество" class="form-control" value="<?= $_POST['patronymic'] ?? '' ?>">
-                <?php
-                if (isset($errors['patronymic'])) {
-                    foreach ($errors['patronymic'] as $val) {
-                        echo '<p class="text-danger">' . $val . '</p>';
-                    }
-                }
-                ?>
+                <?php renderErrors($errors, 'patronymic'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="email" name="email" placeholder="Ваш email" class="form-control" value="<?= $_POST['email'] ?? '' ?>">
-                <?php
-                if (isset($errors['email'])) {
-                    foreach ($errors['email'] as $val) {
-                        echo '<p class="text-danger">' . $val . '</p>';
-                    }
-                }
-                ?>
+                <?php renderErrors($errors, 'email') ?>
             </div>
 
             <div class="mb-3">
                 <input type="password" name="password" placeholder="Придумайте пароль" class="form-control">
-                <?php
-                if (isset($errors['password'])) {
-                    foreach ($errors['password'] as $val) {
-                        echo '<p class="text-danger">' . $val . '</p>';
-                    }
-                }
-                ?>
+                <?php renderErrors($errors, 'password'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="password" name="password_again" placeholder="Повторите пароль" class="form-control">
-                <?php
-                if (isset($errors['password_again'])) {
-                    foreach ($errors['password_again'] as $val) {
-                        echo '<p class="text-danger">' . $val . '</p>';
-                    }
-                }
-                ?>
+                <?php renderErrors($errors, 'password_again'); ?>
             </div>
             <?= $message ?? '' ?>
             <input type="submit" value="Зарегистрироваться" class="btn btn-primary">

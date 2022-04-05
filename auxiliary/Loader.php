@@ -1,4 +1,5 @@
 <?php
+session_start();
 class Loader
 {
     private static $set = [

@@ -1,10 +1,9 @@
 <?php
-require_once(__DIR__ . '/../auxiliary/Loader.php');
 require_once(Loader::load('router'));
 
 ?>
 <div class="header d-flex justify-content-between">
-    <a class="nav-link" href="<?= ROOT ?><?= Router::get('main')?>">Главная</a>
+    <a class="nav-link" href="<?= ROOT ?><?= Router::get('main') ?>">Главная</a>
     <ul class="nav justify-content-end">
         <?php
         if (!isset($_SESSION['id'])) :
