@@ -7,7 +7,7 @@ class Query
     use dbConnection {
         connect as private;
     }
-    private string $table = '';
+    private $table = '';
     private $mysqli = 'db_connection';
 
     function __construct(string $tablename)
@@ -31,14 +31,34 @@ class Query
         return $this->mysqli->query('SELECT * FROM ' . $this->table)->fetch_all($mode = MYSQLI_ASSOC);
     }
 
-    public function insert(array $data, $columns = '', $values = ''): bool
+    public function insert(array $data): bool
     {
+        $columns = '';
+        $values = '';
         foreach ($data as $key => $value) {
-            $columns = $columns  . $key . ", ";
-            $values = $values . "'" . $value . "', ";
+            $columns .= $key . ", ";
+            $values .= "'" . $value . "', ";
         }
         $columns = substr($columns, 0, -2);
         $values = substr($values, 0, -2);
         return (bool)$this->mysqli->query("INSERT INTO " . $this->table . " (" . $columns . ") VALUES (" . $values . ")");
+    }
+
+    public function delete(string $condition = ''): bool
+    {
+        $condition = $condition == '' ? $condition : "WHERE $condition";
+        return (bool)$this->mysqli->query("DELETE FROM " . $this->table . " $condition");
+    }
+
+    public function update(array $data, string $condition): bool
+    {
+        $newData = '';
+        foreach ($data as $key => $value) {
+            $newData .=  " $key='$value', ";
+        }
+        $newData = substr($newData, 0, -2);
+        echo "UPDATE " . $this->table . " SET $newData WHERE $condition";
+        // return true;
+        return (bool)$this->mysqli->query("UPDATE " . $this->table . " SET $newData WHERE $condition");
     }
 }

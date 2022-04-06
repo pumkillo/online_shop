@@ -16,6 +16,7 @@ class Validators
 
     public function __construct(array $fields, array $rules)
     {
+        array_map(fn ($value) => strip_tags($value), $fields);
         $this->fields = $fields;
         $this->rules = $rules;
         $this->validate();

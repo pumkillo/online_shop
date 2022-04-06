@@ -4,6 +4,8 @@ require_once(Loader::load('validators'));
 require_once(Loader::load('router'));
 require_once(Loader::load('app'));
 require_once(Loader::load('query'));
+require_once(Loader::load('middlewares'));
+require_once(Middlewares::getClass('auth'));
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +23,6 @@ require_once(Loader::load('query'));
     <div class="container">
         <?php
         if (!empty($_POST)) {
-            array_map(fn ($value) => strip_tags($value), $_POST);
             $password = md5($_POST['password']);
             $res = Query::table('users')->where("email LIKE '" . $_POST['email'] . "' AND password LIKE '$password'");
 
@@ -33,7 +34,7 @@ require_once(Loader::load('query'));
             }
         }
         require_once(Loader::load('views') . 'header.php');
-        if (!isset($_SESSION['id'])) :
+        if (!AuthMiddleware::is()) :
         ?>
             <div class="container">
                 <form method="post" class="container" style="max-width: 500px;">

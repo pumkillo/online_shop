@@ -1,35 +1,33 @@
 <?php
 require_once(__DIR__ . '/auxiliary/Loader.php');
 require_once(Loader::load('app'));
+require_once(Loader::load('router'));
+require_once(Loader::load('middlewares'));
+require_once(Middlewares::getClass('auth'));
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
-    <link rel="stylesheet" href="<?= ASSETS ?>static/css/style.css">
+    <title>Выход</title>
+    <?php
+    require_once(Loader::load('views') . 'head.php');
+    ?>
 </head>
 
 <body>
     <div class="container">
         <?php
-        if (!isset($_SESSION['id'])) :
+        require_once(Loader::load('views') . 'header.php');
+        if (!AuthMiddleware::is()) :
         ?>
-            <a href="<?= ROOT ?>login.php">Войти</a>
-            <a href="<?= ROOT ?>signup.php">Зарегистрироваться</a>
-        <?php else : ?>
-            <a href="<?= ROOT ?>logout.php">Выйти</a>
-        <?php endif;
-        if (isset($_SESSION['id'])) :
-            unset($_SESSION['id']);
-            header('Location: index.php');
-        else : ?>
             <p>Чтобы выйти, Вы должны быть авторизированы.</p>
-        <?php endif; ?>
+        <?php else :
+            unset($_SESSION['id']);
+            Router::redirect('main');
+        endif;
+        ?>
     </div>
-
 </body>
 
 </html>

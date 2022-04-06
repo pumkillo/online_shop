@@ -1,8 +1,10 @@
 <?php
 session_start();
+
 class Loader
 {
     private static $set = [
+
         'db' => __DIR__ . '/../config/db_connect.php',
         'app' => __DIR__ . '/../config/app_config.php',
         'views' => __DIR__ . '/../Views/',
@@ -12,8 +14,11 @@ class Loader
         'middlewares' => __DIR__ . '/Middlewares.php',
     ];
 
-    public static function load(string $key): string
+    public static function load(string $key, string $view = ''): string
     {
-        return self::$set[strtolower($key)];
+        if ($key === 'views' && $view !== '') {
+            return static::$set[strtolower($key)] . "$view.php";
+        }
+        return static::$set[strtolower($key)];
     }
 }

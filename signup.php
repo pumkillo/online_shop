@@ -22,7 +22,6 @@ require_once(Loader::load('views') . 'errors.php');
         <?php
         $errors = [];
         if (!empty($_POST)) {
-            array_map(fn ($value) => strip_tags($value), $_POST);
 
             $validator = new Validators($_POST, [
                 'email' => ['required', 'email', 'unique:users,email'],
@@ -38,14 +37,13 @@ require_once(Loader::load('views') . 'errors.php');
                 $errors['password_again'] = [];
                 array_push($errors['password_again'], $check_passwords_error);
             } else {
-                $res = Query::table('users')->insert([
+                Query::table('users')->insert([
                     'email' => $_POST['email'],
                     'password' => md5($_POST['password']),
                     'name' => $_POST['name'],
                     'surname' => $_POST['surname'],
                     'patronymic' => $_POST['patronymic'],
-                    'is_admin' => 0,
-
+                    'is_admin' => false,
                 ]);
                 Router::redirect('main');
             }
