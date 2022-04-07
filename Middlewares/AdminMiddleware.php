@@ -2,9 +2,8 @@
 require_once(__DIR__ . '/../auxiliary/Loader.php');
 require_once(Loader::load('query'));
 require_once(Loader::load('router'));
-require_once(__DIR__.'/Interface.php');
 
-class AdminMiddleware implements MiddlewareInterface
+class AdminMiddleware 
 {
     private static $errorMessage = 'У Вас нет доступа к этой странице.';
 

@@ -1,9 +1,8 @@
 <?php
 require_once(__DIR__ . '/../auxiliary/Loader.php');
 require_once(Loader::load('router'));
-require_once(__DIR__.'/Interface.php');
 
-class AuthMiddleware implements MiddlewareInterface
+class AuthMiddleware 
 {
     public static function check(): void
     {

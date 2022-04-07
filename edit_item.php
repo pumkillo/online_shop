@@ -27,7 +27,7 @@ AdminMiddleware::check();
         $errors = [];
         $prev_data = Query::table('items')->where("id LIKE '" . $_GET['id'] . "'")[0];
         if (!empty($_POST)) {
-
+            $prev_data = &$_POST;
             $validator = new Validators($_POST, [
                 'name' => ['required'],
             ]);

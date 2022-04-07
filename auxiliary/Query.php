@@ -57,8 +57,6 @@ class Query
             $newData .=  " $key='$value', ";
         }
         $newData = substr($newData, 0, -2);
-        echo "UPDATE " . $this->table . " SET $newData WHERE $condition";
-        // return true;
         return (bool)$this->mysqli->query("UPDATE " . $this->table . " SET $newData WHERE $condition");
     }
 }
