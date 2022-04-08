@@ -1,13 +1,14 @@
 <?php
 require_once(__DIR__ . '/auxiliary/Loader.php');
+require_once(Loader::load('middlewares'));
+require_once(Middlewares::getClass('admin'));
+AdminMiddleware::check();
+
 require_once(Loader::load('app'));
 require_once(Loader::load('query'));
 require_once(Loader::load('router'));
 require_once(Loader::load('validators'));
-require_once(Loader::load('middlewares'));
-require_once(Middlewares::getClass('admin'));
 require_once(Loader::load('views', 'errors'));
-AdminMiddleware::check();
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +41,7 @@ AdminMiddleware::check();
                     'price' => $_POST['price'],
                     'name' => $_POST['name'],
                 ], "id LIKE " . $_GET['id']);
+                Router::redirect('main');
             }
         }
         require_once(Loader::load('views') . 'header.php');

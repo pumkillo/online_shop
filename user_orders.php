@@ -1,9 +1,11 @@
 <?php
 require_once(__DIR__ . '/auxiliary/Loader.php');
-require_once(Loader::load('app'));
-require_once(Loader::load('query'));
 require_once(Loader::load('middlewares'));
 require_once(Middlewares::getClass('auth'));
+AuthMiddleware::check();
+
+require_once(Loader::load('app'));
+require_once(Loader::load('query'));
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +23,6 @@ require_once(Middlewares::getClass('auth'));
     <div class="container">
         <?php
         require_once(Loader::load('views') . 'header.php');
-        AuthMiddleware::check();
         foreach (Query::table('orders')->where("user_id LIKE " . $_SESSION['id']) as $order) :
             $user  = Query::table('users')->where("id LIKE '" . $order['user_id'] . "'");
             $user = (isset($user[0]['name'])) ? "Заказчик: " . $user[0]['name'] : "Заказчик не указан";

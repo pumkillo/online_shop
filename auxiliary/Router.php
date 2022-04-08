@@ -15,6 +15,7 @@ class Router
         'edit_item'=> 'edit_item.php',
         'delete_order' => 'delete_order.php',
         'all_orders' => 'all_orders.php',
+        'delete_cart_item' => 'delete_cart_item.php',
     ];
 
     public static function redirect(string $route, int $time = 0): void

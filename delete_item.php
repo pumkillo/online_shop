@@ -1,10 +1,12 @@
 <?php
 require_once(__DIR__ . '/auxiliary/Loader.php');
+require_once(Loader::load('middlewares'));
+require_once(Middlewares::getClass('admin'));
+AdminMiddleware::check();
+
 require_once(Loader::load('app'));
 require_once(Loader::load('router'));
 require_once(Loader::load('query'));
-require_once(Loader::load('middlewares'));
-require_once(Middlewares::getClass('admin'));
 require_once(Loader::load('views', 'errors'));
 ?>
 <!DOCTYPE html>
@@ -18,7 +20,6 @@ require_once(Loader::load('views', 'errors'));
 <body>
     <div class="container">
         <?php require_once(Loader::load('views') . 'header.php');
-        AdminMiddleware::check();
         $id = $_GET['id'] ?? -1;
         $condition = "id LIKE '$id'";
         if (count(Query::table('items')->where($condition)) === 0) {

@@ -8,6 +8,7 @@ class AuthMiddleware
     {
         if (!static::is()) {
             Router::redirect('login');
+            exit();
         }
     }
 

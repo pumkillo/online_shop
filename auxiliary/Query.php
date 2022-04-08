@@ -21,9 +21,9 @@ class Query
         return new Query($tablename);
     }
 
-    public function where(string $condition): array
+    public function where(string $condition, $select="*"): array
     {
-        return $this->mysqli->query("SELECT *  FROM " . $this->table . " WHERE " . $condition)->fetch_all($mode = MYSQLI_ASSOC);
+        return $this->mysqli->query("SELECT $select  FROM " . $this->table . " WHERE " . $condition)->fetch_all($mode = MYSQLI_ASSOC);
     }
 
     public function all(): array

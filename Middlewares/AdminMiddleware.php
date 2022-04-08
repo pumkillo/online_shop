@@ -11,10 +11,12 @@ class AdminMiddleware
     {
         if (!isset($_SESSION['id'])) {
             Router::redirect('login');
+            exit();
         }
         if (!static::is()) {
             echo static::$errorMessage;
             Router::redirect('main', 3);
+            exit();
         }
     }
 

@@ -28,7 +28,7 @@ require_once(Middlewares::getClass('admin'));
                     <h5 class="card-title"><?= $item['name'] ?? 'У этого товара нет наименования' ?></h5>
                     <p class="card-text"><?= $item['description'] ?? 'Нет описания' ?></p>
                     <p class="card-text"><?= $item['price'] . '&#x20bd;' ?? 'Цена не указана' ?></p>
-                    <a href="<?= Router::get('add_to_cart') ?>" class="btn btn-primary">Добавить в корзину</a>
+                    <a href="<?= Router::get('add_to_cart') . "?id=" . $item['id'] ?>" class="btn btn-primary">Добавить в корзину</a>
                     <?php
                     if (AdminMiddleware::is()) :
                     ?>
