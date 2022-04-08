@@ -25,8 +25,15 @@ require_once(Loader::load('views', 'errors'));
 <body>
     <div class="container">
         <?php
+        require_once(Loader::load('views') . 'header.php');
         $errors = [];
-        $prev_data = Query::table('items')->where("id LIKE '" . $_GET['id'] . "'")[0];
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        } else {
+            renderError('Отсутствует обязательный параметр (id)');
+            exit();
+        }
+        $prev_data = Query::table('items')->where("id LIKE '$id'")[0];
         if (!empty($_POST)) {
             $prev_data = &$_POST;
             $validator = new Validators($_POST, [
@@ -44,7 +51,6 @@ require_once(Loader::load('views', 'errors'));
                 Router::redirect('main');
             }
         }
-        require_once(Loader::load('views') . 'header.php');
         ?>
         <form method="post" class="container" style="max-width: 500px;">
             <div class="mb-3">

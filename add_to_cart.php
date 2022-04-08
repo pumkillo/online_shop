@@ -21,9 +21,15 @@ require_once(Loader::load('views', 'errors'));
 <body>
     <div class="container">
         <?php require_once(Loader::load('views') . 'header.php');
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        } else {
+            renderError('Отсутствует обязательный параметр (id)');
+            exit();
+        }
         if (Query::table('cart_items')->insert([
             'user_id' => $_SESSION['id'],
-            'item_id' => $_GET['id'],
+            'item_id' => $id,
         ])) {
             Router::redirect('main');
         } else {

@@ -21,17 +21,35 @@ require_once(Loader::load('views', 'errors'));
 <body>
     <div class="container">
         <?php require_once(Loader::load('views') . 'header.php');
-        if (Query::table('orders')->insert([
+        $orderSQL = Query::table('orders');
+        $orderSQL->insert([
             'user_id' => $_SESSION['id'],
             'time' => date('Y-m-d H:i:s'),
-        ])) {
-            // Router::redirect('cart');
-            echo "ok";
-            
-        } else {
-            echo date('Y-m-d H:i:s');
-            // Thursday 7th of April 2022 08:52:21 PM
-            renderError("Ошибка оформления заказа");
+        ]);
+        $lastOrderId =  $orderSQL->lastId();
+        // $lastOrderId =  "6";
+        if ($lastOrderId !== 0) {
+            $cartItems = Query::table('cart_items')->where("user_id LIKE '" . $_SESSION['id'] . "'");
+            foreach ($cartItems as $cartItem) {
+                $item = Query::table('items')->where("id LIKE " . $cartItem['item_id'])[0];
+                if (
+                    !Query::table('order_items')->insert([
+                        'order_id' => $lastOrderId,
+                        'item_id' => $cartItem['item_id'],
+                        'name' => $item['name'],
+                        'description' => $item['description'],
+                        'price' => $item['price'],
+                    ]) ||
+                    !Query::table('orders')->update([
+                        'price' => "price + " . $item['price'],
+                    ], "id LIKE $lastOrderId")
+                ) {
+                    renderError("Ошибка оформления заказа");
+                    exit();
+                }
+            }
+            Query::table('cart_items')->delete("user_id LIKE " . $_SESSION['id']);
+            Router::redirect('cart');
         }
         ?>
     </div>

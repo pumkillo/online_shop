@@ -21,9 +21,9 @@ class Query
         return new Query($tablename);
     }
 
-    public function where(string $condition, $select="*"): array
+    public function where(string $condition, string $select = "*"): array
     {
-        return $this->mysqli->query("SELECT $select  FROM " . $this->table . " WHERE " . $condition)->fetch_all($mode = MYSQLI_ASSOC);
+        return $this->mysqli->query("SELECT $select  FROM " . $this->table . " WHERE $condition")->fetch_all($mode = MYSQLI_ASSOC);
     }
 
     public function all(): array
@@ -41,7 +41,7 @@ class Query
         }
         $columns = substr($columns, 0, -2);
         $values = substr($values, 0, -2);
-        return (bool)$this->mysqli->query("INSERT INTO " . $this->table . " (" . $columns . ") VALUES (" . $values . ")");
+        return (bool)$this->mysqli->query("INSERT INTO " . $this->table . " ($columns) VALUES ($values)");
     }
 
     public function delete(string $condition = ''): bool
@@ -50,13 +50,22 @@ class Query
         return (bool)$this->mysqli->query("DELETE FROM " . $this->table . " $condition");
     }
 
-    public function update(array $data, string $condition): bool
+    public function update(array $data, string $condition, string $whereCondition = "="): bool
     {
         $newData = '';
         foreach ($data as $key => $value) {
-            $newData .=  " $key='$value', ";
+            if (preg_match_all("/[\*\/%\+\-]/", $value)){
+                $newData .=  " $key $whereCondition $value, ";
+                continue;
+            }
+            $newData .=  " $key $whereCondition '$value', ";
         }
         $newData = substr($newData, 0, -2);
         return (bool)$this->mysqli->query("UPDATE " . $this->table . " SET $newData WHERE $condition");
+    }
+
+    public function lastId(): string
+    {
+        return (string)$this->mysqli->insert_id;
     }
 }

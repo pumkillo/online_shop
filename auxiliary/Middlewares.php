@@ -4,7 +4,6 @@ class Middlewares
     private static $middlewares = [
         'auth' => 'AuthMiddleware',
         'admin' => 'AdminMiddleware',
-        'owner' => 'OwnerMiddleware',
     ];
 
     public static function getClass(string $key): string

@@ -14,8 +14,7 @@ class AdminMiddleware
             exit();
         }
         if (!static::is()) {
-            echo static::$errorMessage;
-            Router::redirect('main', 3);
+            Router::redirect('main');
             exit();
         }
     }

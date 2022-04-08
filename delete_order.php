@@ -21,7 +21,12 @@ require_once(Loader::load('views', 'errors'));
 <body>
     <div class="container">
         <?php require_once(Loader::load('views') . 'header.php');
-        $id = $_GET['id'] ?? -1;
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+        } else {
+            renderError('Отсутствует обязательный параметр (id)');
+            exit();
+        }
         $condition = "id LIKE '$id'";
         if (count(Query::table('orders')->where($condition)) === 0) {
             renderError('Такого заказа не существует.');

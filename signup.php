@@ -45,7 +45,7 @@ require_once(Loader::load('views') . 'errors.php');
                     'patronymic' => $_POST['patronymic'],
                     'is_admin' => false,
                 ]);
-                Router::redirect('main');
+                Router::redirect('login');
             }
         }
         require_once(Loader::load('views') . 'header.php');
