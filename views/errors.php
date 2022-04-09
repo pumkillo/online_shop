@@ -1,14 +1,17 @@
 <?php
-function renderErrors(array &$array, string $key): void
+class Errors
 {
-    if (isset($array[$key])) {
-        foreach ($array[$key] as $val) {
-            echo '<p class="errors text-danger">' . $val . '</p>';
+    public static function renderErrors(array &$array, string $key): void
+    {
+        if (isset($array[$key])) {
+            foreach ($array[$key] as $val) {
+                echo '<p class="errors text-danger">' . $val . '</p>';
+            }
         }
     }
-}
 
-function renderError($errorMessage): void
-{
-    echo '<p class="errors text-danger">' . $errorMessage . '</p>';
+    public static function renderError(string $errorMessage): void
+    {
+        echo '<p class="errors text-danger">' . $errorMessage . '</p>';
+    }
 }

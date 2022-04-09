@@ -11,9 +11,7 @@ require_once(Loader::load('views') . 'errors.php');
 
 <head>
     <title>Регистрация</title>
-    <?php
-    require_once(Loader::load('views') . 'head.php');
-    ?>
+    <?php require_once(Loader::load('views') . 'head.php'); ?>
 </head>
 
 
@@ -55,32 +53,32 @@ require_once(Loader::load('views') . 'errors.php');
 
             <div class="mb-3">
                 <input type="text" name="name" placeholder="Имя" class="form-control" value="<?= $_POST['name'] ?? '' ?>">
-                <?php renderErrors($errors, 'name'); ?>
+                <?php Errors::renderErrors($errors, 'name'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="text" name="surname" placeholder="Фамилия" class="form-control" value="<?= $_POST['surname'] ?? '' ?>">
-                <?php renderErrors($errors, 'surname'); ?>
+                <?php Errors::renderErrors($errors, 'surname'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="text" name="patronymic" placeholder="Отчество" class="form-control" value="<?= $_POST['patronymic'] ?? '' ?>">
-                <?php renderErrors($errors, 'patronymic'); ?>
+                <?php Errors::renderErrors($errors, 'patronymic'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="email" name="email" placeholder="Ваш email" class="form-control" value="<?= $_POST['email'] ?? '' ?>">
-                <?php renderErrors($errors, 'email') ?>
+                <?php Errors::renderErrors($errors, 'email') ?>
             </div>
 
             <div class="mb-3">
                 <input type="password" name="password" placeholder="Придумайте пароль" class="form-control">
-                <?php renderErrors($errors, 'password'); ?>
+                <?php Errors::renderErrors($errors, 'password'); ?>
             </div>
 
             <div class="mb-3">
                 <input type="password" name="password_again" placeholder="Повторите пароль" class="form-control">
-                <?php renderErrors($errors, 'password_again'); ?>
+                <?php Errors::renderErrors($errors, 'password_again'); ?>
             </div>
             <?= $message ?? '' ?>
             <input type="submit" value="Зарегистрироваться" class="btn btn-primary">

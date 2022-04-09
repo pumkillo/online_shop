@@ -44,7 +44,7 @@ require_once(Loader::load('views', 'errors'));
                         'price' => "price + " . $item['price'],
                     ], "id LIKE $lastOrderId")
                 ) {
-                    renderError("Ошибка оформления заказа");
+                    Errors::renderError("Ошибка оформления заказа");
                     exit();
                 }
             }

@@ -24,7 +24,7 @@ require_once(Loader::load('views', 'errors'));
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {
-            renderError('Отсутствует обязательный параметр (id)');
+            Errors::renderError('Отсутствует обязательный параметр (id)');
             exit();
         }
         if (Query::table('cart_items')->insert([
@@ -33,7 +33,7 @@ require_once(Loader::load('views', 'errors'));
         ])) {
             Router::redirect('main');
         } else {
-            renderError("Ошибка добавления товара в корзину");
+            Errors::renderError("Ошибка добавления товара в корзину");
         }
         ?>
     </div>

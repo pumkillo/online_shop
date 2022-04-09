@@ -12,9 +12,7 @@ require_once(Loader::load('router'));
 
 <head>
     <title>Выход</title>
-    <?php
-    require_once(Loader::load('views') . 'head.php');
-    ?>
+    <?php require_once(Loader::load('views') . 'head.php'); ?>
 </head>
 
 <body>

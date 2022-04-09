@@ -5,8 +5,6 @@ require_once(Loader::load('router'));
 
 class AdminMiddleware 
 {
-    private static $errorMessage = 'У Вас нет доступа к этой странице.';
-
     public static function check(): void
     {
         if (!isset($_SESSION['id'])) {

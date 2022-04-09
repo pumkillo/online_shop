@@ -1,20 +1,19 @@
 <?php
 require_once(__DIR__ . '/auxiliary/Loader.php');
+require_once(Loader::load('middlewares'));
+require_once(Middlewares::getClass('auth'));
 require_once(Loader::load('validators'));
 require_once(Loader::load('router'));
 require_once(Loader::load('app'));
 require_once(Loader::load('query'));
-require_once(Loader::load('middlewares'));
-require_once(Middlewares::getClass('auth'));
+require_once(Loader::load('views', 'errors'));
 ?>
 
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
-    <?php
-    require_once(Loader::load('views') . 'head.php');
-    ?>
+    <?php require_once(Loader::load('views') . 'head.php'); ?>
     <title>Авторизация</title>
 </head>
 
@@ -46,7 +45,7 @@ require_once(Middlewares::getClass('auth'));
                         <input type="password" name="password" placeholder="Введите Ваш пароль" class="form-control">
                     </div>
 
-                    <p class="errors text-danger"><?= $message ?? '' ?></p>
+                    <?php Errors::renderError($message)?>
                     <input type="submit" value="Войти" class="btn btn-primary">
                 </form>
             <?php else : ?>

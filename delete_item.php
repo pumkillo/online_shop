@@ -23,18 +23,18 @@ require_once(Loader::load('views', 'errors'));
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {
-            renderError('Отсутствует обязательный параметр (id)');
+            Errors::renderError('Отсутствует обязательный параметр (id)');
             exit();
         }
         $condition = "id LIKE '$id'";
         if (count(Query::table('items')->where($condition)) === 0) {
-            renderError('Такой записи не существует.');
+            Errors::renderError('Такой записи не существует.');
             exit();
         }
         if (Query::table('items')->delete($condition)) {
             Router::redirect('main');
         } else {
-            renderError("Ошибка удаления товара");
+            Errors::renderError("Ошибка удаления товара");
         }
         ?>
     </div>

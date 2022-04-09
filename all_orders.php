@@ -12,9 +12,7 @@ require_once(Loader::load('query'));
 <html lang="ru">
 
 <head>
-    <?php
-    require_once(Loader::load('views') . 'head.php');
-    ?>
+    <?php require_once(Loader::load('views') . 'head.php'); ?>
     <title>Все заказы</title>
 </head>
 

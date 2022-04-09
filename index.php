@@ -11,9 +11,7 @@ require_once(Middlewares::getClass('admin'));
 <html lang="ru">
 
 <head>
-    <?php
-    require_once(Loader::load('views') . 'head.php');
-    ?>
+    <?php require_once(Loader::load('views') . 'head.php'); ?>
     <title>Главная</title>
 </head>
 

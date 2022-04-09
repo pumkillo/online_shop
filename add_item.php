@@ -15,9 +15,7 @@ require_once(Loader::load('views', 'errors'));
 <html lang="ru">
 
 <head>
-    <?php
-    require_once(Loader::load('views', 'head'));
-    ?>
+    <?php require_once(Loader::load('views', 'head')); ?>
     <title>Добавление товара</title>
 </head>
 
@@ -49,7 +47,7 @@ require_once(Loader::load('views', 'errors'));
         <form method="post" class="container" style="max-width: 500px;">
             <div class="mb-3">
                 <input type="text" name="name" placeholder="Наименование товара" class="form-control" value="<?= $_POST['name'] ?? '' ?>">
-                <?php renderErrors($errors, 'name'); ?>
+                <?php Errors::renderErrors($errors, 'name'); ?>
             </div>
 
             <div class="mb-3">
@@ -58,7 +56,7 @@ require_once(Loader::load('views', 'errors'));
             <div class="mb-3">
                 <input type="number" name="price" class="form-control" value="<?= $_POST['price'] ?? 0 ?>">
                 <?php if (isset($isSuccess) && !$isSuccess) {
-                    renderError('Ошибка добавления товара в Базу Данных');
+                    Errors::renderError('Ошибка добавления товара в Базу Данных');
                 } ?>
             </div>
             <input type="submit" value="Добавить" class="btn btn-primary">

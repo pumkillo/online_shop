@@ -15,9 +15,7 @@ require_once(Loader::load('views', 'errors'));
 <html lang="ru">
 
 <head>
-    <?php
-    require_once(Loader::load('views', 'head'));
-    ?>
+    <?php require_once(Loader::load('views', 'head')); ?>
     <title>Редактирование данных о товаре</title>
 </head>
 
@@ -30,7 +28,7 @@ require_once(Loader::load('views', 'errors'));
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {
-            renderError('Отсутствует обязательный параметр (id)');
+            Errors::renderError('Отсутствует обязательный параметр (id)');
             exit();
         }
         $prev_data = Query::table('items')->where("id LIKE '$id'")[0];
@@ -55,7 +53,7 @@ require_once(Loader::load('views', 'errors'));
         <form method="post" class="container" style="max-width: 500px;">
             <div class="mb-3">
                 <input type="text" name="name" placeholder="Наименование товара" class="form-control" value="<?= $prev_data['name'] ?? '' ?>">
-                <?php renderErrors($errors, 'name'); ?>
+                <?php Errors::renderErrors($errors, 'name'); ?>
             </div>
 
             <div class="mb-3">

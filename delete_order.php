@@ -24,18 +24,18 @@ require_once(Loader::load('views', 'errors'));
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
         } else {
-            renderError('Отсутствует обязательный параметр (id)');
+            Errors::renderError('Отсутствует обязательный параметр (id)');
             exit();
         }
         $condition = "id LIKE '$id'";
         if (count(Query::table('orders')->where($condition)) === 0) {
-            renderError('Такого заказа не существует.');
+            Errors::renderError('Такого заказа не существует.');
             exit();
         }
         if (Query::table('orders')->delete($condition)) {
             Router::redirect('main');
         } else {
-            renderError("Ошибка удаления заказа.");
+            Errors::renderError("Ошибка удаления заказа.");
         }
         ?>
     </div>
