@@ -42,7 +42,6 @@ require_once(Loader::load('query'));
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                    <a href="<?= Router::get('delete_order') . "?id=" . $order['id'] ?>" class="btn btn-danger">Удалить</a>
                 </div>
             </div>
         <?php endforeach; ?>

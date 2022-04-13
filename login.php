@@ -45,7 +45,7 @@ require_once(Loader::load('views', 'errors'));
                         <input type="password" name="password" placeholder="Введите Ваш пароль" class="form-control">
                     </div>
 
-                    <?php Errors::renderError($message)?>
+                    <?php isset($message) ? Errors::renderError($message) : '' ?>
                     <input type="submit" value="Войти" class="btn btn-primary">
                 </form>
             <?php else : ?>
